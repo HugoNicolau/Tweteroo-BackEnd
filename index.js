@@ -14,12 +14,12 @@ const users = [
 
 const tweets = [
     {
-        username: "bobesponja",
+        username: 'bobesponja',
       tweet: "eu amo o hub"
     }
 ]
 
-app.post("/sing-up", (req, res) => {
+app.post("/sign-up", (req, res) => {
     const {username, avatar} = req.body
 
     if(!username || !avatar){
@@ -44,7 +44,28 @@ app.post("/tweets", (req, res) => {
 })
 
 app.get("/tweets", (req, res) => {
-    
+
+    let len = tweets.length
+    if(len>10){
+        const limitTweets = []
+        
+        for(let i = len-1; i>=len-10;i--){
+            limitTweets.push(tweets[i])
+            limitTweets[limitTweets.length-1].avatar = users.find(({username}) => username === tweets[i].username).avatar
+        }
+        
+        res.send(limitTweets)
+        return;
+    }
+    else{
+        const completeTweets = []
+        for(let i=len-1; i>=0;i--){
+            completeTweets.push(tweets[i])
+            completeTweets[completeTweets.length-1].avatar = users.find(({username}) => username === tweets[i].username).avatar
+        }
+        res.send(tweets)
+        return;
+    }
 })
 
 
