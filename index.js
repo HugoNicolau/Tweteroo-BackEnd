@@ -28,19 +28,20 @@ app.post("/sign-up", (req, res) => {
     }
     const user = req.body
     users.push(user)
-    res.status(200).send("OK");
+    res.status(201).send("OK");
 })
 
 app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body
 
+    
     if(!username || !tweet){
         res.status(400).send("Tweet ou user inválido")
         return;
     }
     const tweetmessage = req.body
     tweets.push(tweetmessage);
-    res.status(200).send("OK")
+    res.status(201).send("OK")
 })
 
 app.get("/tweets", (req, res) => {
@@ -54,7 +55,7 @@ app.get("/tweets", (req, res) => {
             limitTweets[limitTweets.length-1].avatar = users.find(({username}) => username === tweets[i].username).avatar
         }
         
-        res.send(limitTweets)
+        res.status(200).send(limitTweets)
         return;
     }
     else{
@@ -63,37 +64,10 @@ app.get("/tweets", (req, res) => {
             completeTweets.push(tweets[i])
             completeTweets[completeTweets.length-1].avatar = users.find(({username}) => username === tweets[i].username).avatar
         }
-        res.send(tweets)
+        res.status(200).send(completeTweets)
         return;
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
