@@ -29,10 +29,23 @@ app.post("/sing-up", (req, res) => {
     const user = req.body
     users.push(user)
     res.status(200).send("OK");
-
-
 })
 
+app.post("/tweets", (req, res) => {
+    const {username, tweet} = req.body
+
+    if(!username || !tweet){
+        res.status(400).send("Tweet ou user inválido")
+        return;
+    }
+    const tweetmessage = req.body
+    tweets.push(tweetmessage);
+    res.status(200).send("OK")
+})
+
+app.get("/tweets", (req, res) => {
+    
+})
 
 
 
